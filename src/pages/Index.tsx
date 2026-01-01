@@ -35,7 +35,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="bg-primary text-primary-foreground py-4 sticky top-0 z-50 shadow-md">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="text-2xl font-bold">БетонТверь</div>
+          <div className="text-2xl font-bold">СеверБетон</div>
           <nav className="hidden md:flex gap-6">
             <a href="#advantages" className="hover:text-accent transition-colors">Преимущества</a>
             <a href="#services" className="hover:text-accent transition-colors">Услуги</a>
