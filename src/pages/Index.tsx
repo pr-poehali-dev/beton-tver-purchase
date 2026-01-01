@@ -4,16 +4,30 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Icon from "@/components/ui/icon";
 
 const Index = () => {
   const [volume, setVolume] = useState("");
+  const [selectedGrade, setSelectedGrade] = useState("М300");
   const [calculatedPrice, setCalculatedPrice] = useState<number | null>(null);
+
+  const concreteGrades = [
+    { grade: "М100", price: 3200, use: "Подготовительные работы" },
+    { grade: "М150", price: 3500, use: "Стяжки, дорожки" },
+    { grade: "М200", price: 3800, use: "Фундаменты малоэтажных зданий" },
+    { grade: "М250", price: 4100, use: "Перекрытия, лестницы" },
+    { grade: "М300", price: 4500, use: "Монолитные конструкции" },
+    { grade: "М350", price: 4900, use: "Колонны, балки, бассейны" }
+  ];
 
   const handleCalculate = () => {
     const vol = parseFloat(volume);
     if (!isNaN(vol) && vol > 0) {
-      setCalculatedPrice(vol * 4500);
+      const grade = concreteGrades.find(g => g.grade === selectedGrade);
+      if (grade) {
+        setCalculatedPrice(vol * grade.price);
+      }
     }
   };
 
@@ -57,6 +71,21 @@ const Index = () => {
                 </h3>
                 <div className="space-y-4">
                   <div>
+                    <Label htmlFor="grade" className="text-foreground">Марка бетона</Label>
+                    <Select value={selectedGrade} onValueChange={setSelectedGrade}>
+                      <SelectTrigger className="mt-2">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {concreteGrades.map((item) => (
+                          <SelectItem key={item.grade} value={item.grade}>
+                            {item.grade} — {item.price} ₽/м³
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
                     <Label htmlFor="volume" className="text-foreground">Объём бетона (м³)</Label>
                     <Input
                       id="volume"
@@ -78,7 +107,10 @@ const Index = () => {
                         {calculatedPrice.toLocaleString('ru-RU')} ₽
                       </div>
                       <div className="text-xs mt-2 opacity-90">
-                        * Точная цена зависит от марки и расстояния
+                        {selectedGrade} • {volume} м³ • {concreteGrades.find(g => g.grade === selectedGrade)?.price} ₽/м³
+                      </div>
+                      <div className="text-xs mt-1 opacity-90">
+                        * Точная цена зависит от расстояния доставки
                       </div>
                     </div>
                   )}
