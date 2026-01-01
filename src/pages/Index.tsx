@@ -210,7 +210,7 @@ const Index = () => {
               <h2 className="text-4xl font-bold mb-6">О компании</h2>
               <div className="space-y-4 text-lg text-muted-foreground">
                 <p>
-                  <strong className="text-foreground">БетонТверь</strong> — надёжный поставщик 
+                  <strong className="text-foreground">СеверБетон</strong> — надёжный поставщик 
                   качественного бетона в Твери и области с 2010 года.
                 </p>
                 <p>
